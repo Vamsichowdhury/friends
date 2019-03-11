@@ -1,0 +1,35 @@
+
+
+
+{% extends 'base.html' %}
+{% block body%}
+
+{% if user.is_authenticated %}
+<p class='text-center'>
+	<h3>My friends and their crushes</h3><br><br>
+<a href="/myapp/forms/" class="btn btn-primary">enter friend name and their crush</a>
+<a href="{% url 'myapp:remove_all' %}" class='btn btn-danger'>remove all</a>
+<a href="{% url 'myapp:logout_user' %}" class='btn btn-secondary'>Logout</a>
+<table class='table table-dark'>
+	<thead>
+		<tr>
+			<th>name</th>
+			<th>crush</th>
+			<th>Remove</th>
+		</tr>
+	</thead>
+	<tbody>
+	{% for n in names %}
+	<tr>
+		<td>{{n.name}}</td>
+		<td>{{n.crush}}</td>
+		<td><a href="{% url 'myapp:remove_name' n.pk %}" class='btn btn-danger'>Remove</a></td>
+	</tr>
+	{% endfor %}
+	</tbody>
+</table>
+</p>
+{% else %}
+<a href="#">login</a>
+{% endif %}
+{% endblock %}
